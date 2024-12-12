@@ -1,0 +1,21 @@
+[
+    { "id": 1, "name": "Portrait" },
+    { "id": 2, "name": "Landscape" },
+    { "id": 3, "name": "Macro" },
+    { "id": 4, "name": "Street" },
+    { "id": 5, "name": "Documentary" },
+    { "id": 6, "name": "Wildlife" },
+    { "id": 7, "name": "Fashion" },
+    { "id": 8, "name": "Sports" },
+    { "id": 9, "name": "Architectural" },
+    { "id": 10, "name": "Aerial" },
+    { "id": 11, "name": "Underwater" },
+    { "id": 12, "name": "Abstract" },
+    { "id": 13, "name": "Food" },
+    { "id": 14, "name": "Event" },
+    { "id": 15, "name": "Astrophotography" },
+    { "id": 16, "name": "Black and White" },
+    { "id": 17, "name": "Travel" },
+    { "id": 18, "name": "Product" },
+    { "id": 19, "name": "Fine Art" }
+]
