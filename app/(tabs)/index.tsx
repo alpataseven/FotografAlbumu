@@ -26,24 +26,25 @@ const DATA = [
 const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Fotoğraf Albümü</Text>
-      <FlatList
-        data={DATA}
-        renderItem={
-          ({ item }) => 
-        <Pressable
-        style={({ pressed }) => [
-          styles.button,
-          pressed && styles.buttonPressed,
-        ]}
-        onPress={() => console.log('Albüm butonuna tıklandı')}
-      >
-        <Text style={styles.buttonText}>{item.title}</Text>
-      </Pressable>
-      }
-        keyExtractor={(item) => item.id.toString()}
-        ListEmptyComponent={<Text style={styles.title}>Albüm bulunamadı.</Text>}
-      />
+        <Text style={styles.title}>Fotoğraf Albümü</Text>
+        <FlatList
+          data={DATA}
+          renderItem={
+            ({ item }) =>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.button,
+                  pressed && styles.buttonPressed,
+                ]}
+                onPress={() => console.log('Albüm butonuna tıklandı')}
+              >
+                <Text style={styles.buttonText}>{item.title}</Text>
+              </Pressable>
+          }
+          keyExtractor={(item) => item.id.toString()}
+          ListEmptyComponent={<Text style={styles.title}>Albüm bulunamadı.</Text>}
+        />
+
     </View>
   );
 };
@@ -58,6 +59,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+  },
+  background: {
+    flex: 1,
+    justifyContent: 'center', // İçeriği dikey ortalar
+    alignItems: 'center', // İçeriği yatay ortalar
   },
   button: {
     backgroundColor: '#007BFF',
