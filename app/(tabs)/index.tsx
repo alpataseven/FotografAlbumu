@@ -1,53 +1,87 @@
-import React from 'react';
-import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import * as React from 'react';
+import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const DATA = [
-  { id: 1, title: "Portrait" }, // Portre fotoğrafları
-  { id: 2, title: "Landscape" }, // Manzara fotoğrafları
-  { id: 3, title: "Macro" }, // Makro çekimler
-  { id: 4, title: "Street" }, // Sokak fotoğrafçılığı
-  { id: 5, title: "Documentary" }, // Belgesel fotoğrafçılığı
-  { id: 6, title: "Wildlife" }, // Vahşi yaşam fotoğrafları
-  { id: 7, title: "Fashion" }, // Moda fotoğrafçılığı
-  { id: 8, title: "Sports" }, // Spor fotoğrafları
-  { id: 9, title: "Architectural" }, // Mimari fotoğraflar
-  { id: 10, title: "Aerial" }, // Havadan çekimler
-  { id: 11, title: "Underwater" }, // Su altı fotoğrafçılığı
-  { id: 12, title: "Abstract" }, // Soyut fotoğraflar
-  { id: 13, title: "Food" }, // Yemek fotoğrafçılığı
-  { id: 14, title: "Event" }, // Etkinlik fotoğrafçılığı
-  { id: 15, title: "Astrophotography" }, // Gökyüzü fotoğrafçılığı
-  { id: 16, title: "Black and White" }, // Siyah beyaz fotoğraflar
-  { id: 17, title: "Travel" }, // Seyahat fotoğrafçılığı
-  { id: 18, title: "Product" }, // Ürün fotoğrafçılığı
-  { id: 19, title: "Fine Art" } // Güzel sanatlar fotoğrafçılığı
-];
+type RootStackParamList = {
+  Home: undefined; // Home ekranı parametre almaz
+  Photos: undefined; // Photos ekranı parametre almaz
+};
 
-const App = () => {
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type PhotosScreenProps = NativeStackScreenProps<RootStackParamList, 'Photos'>;
+
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Fotoğraf Albümü</Text>
-        <FlatList
-          data={DATA}
-          renderItem={
-            ({ item }) =>
-              <Pressable
-                style={({ pressed }) => [
-                  styles.button,
-                  pressed && styles.buttonPressed,
-                ]}
-                onPress={() => console.log('Albüm butonuna tıklandı')}
-              >
-                <Text style={styles.buttonText}>{item.title}</Text>
-              </Pressable>
-          }
-          keyExtractor={(item) => item.id.toString()}
-          ListEmptyComponent={<Text style={styles.title}>Albüm bulunamadı.</Text>}
-        />
-
+      <Text style={styles.title}>Fotoğraf Albümü</Text>
+      <Pressable
+        style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+        onPress={() => navigation.navigate('Photos')}
+      >
+        <Text style={styles.buttonText}>Albüme Git</Text>
+      </Pressable>
     </View>
   );
 };
+
+const PhotosScreen: React.FC<PhotosScreenProps> = () => {
+  const DATA = [
+    { id: 1, title: "Portrait" },
+    { id: 2, title: "Landscape" },
+    { id: 3, title: "Macro" },
+    { id: 4, title: "Street" },
+    { id: 5, title: "Documentary" },
+    { id: 6, title: "Wildlife" },
+    { id: 7, title: "Fashion" },
+    { id: 8, title: "Sports" },
+    { id: 9, title: "Architectural" },
+    { id: 10, title: "Aerial" },
+    { id: 11, title: "Underwater" },
+    { id: 12, title: "Abstract" },
+    { id: 13, title: "Food" },
+    { id: 14, title: "Event" },
+    { id: 15, title: "Astrophotography" },
+    { id: 16, title: "Black and White" },
+    { id: 17, title: "Travel" },
+    { id: 18, title: "Product" },
+    { id: 19, title: "Fine Art" },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Fotoğraf Albümü</Text>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => (
+          <Pressable
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+            onPress={() => console.log(`Albüm ${item.title} seçildi`)}
+          >
+            <Text style={styles.buttonText}>{item.title}</Text>
+          </Pressable>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={<Text style={styles.title}>Albüm bulunamadı.</Text>}
+      />
+    </View>
+  );
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const App: React.FC = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Photos" component={PhotosScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
@@ -59,11 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-  },
-  background: {
-    flex: 1,
-    justifyContent: 'center', // İçeriği dikey ortalar
-    alignItems: 'center', // İçeriği yatay ortalar
   },
   button: {
     backgroundColor: '#007BFF',
@@ -81,14 +110,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  content: {
-    fontSize: 30,
-    color: '#fff',
-    flex: 1,
-    backgroundColor: '#007BFF',
-    marginVertical: 10,
-    padding: 20,
-  }
 });
-
-export default App;
